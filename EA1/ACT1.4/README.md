@@ -78,6 +78,13 @@ resource "aws_security_group" "ssh_access" {
 
 ### 6. Aplicar los Cambios en Terraform
 
+Exporta las Credenciales de AWS 
+```bash
+export AWS_ACCESS_KEY_ID=<tu_access_key_id>
+export AWS_SECRET_ACCESS_KEY=<tu_secret_access_key>
+export AWS_SESSION_TOKEN=<tu_session_token>
+```
+
 Ejecuta el siguiente comando para inicializar el entorno de Terraform (si no lo has hecho ya):
 
 ```bash
