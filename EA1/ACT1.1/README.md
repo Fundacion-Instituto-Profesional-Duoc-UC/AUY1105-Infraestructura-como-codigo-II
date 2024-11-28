@@ -1,6 +1,6 @@
-# AUY1105 - Infraestructura como código II
+# AUY1105 - INFRAESTRUCTURA COMO CÓDIGO II
 
-# Revisión de código mediante pull requests
+# REVISIÓN DE CÓDIGO MEDIANTE PULL REQUEST
 
 ## DESARROLLO DE ACTIVIDAD
 
