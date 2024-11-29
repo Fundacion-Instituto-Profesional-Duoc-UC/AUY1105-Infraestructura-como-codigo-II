@@ -29,7 +29,7 @@ jobs:
 
       - name: Run Checkov on Terraform files
         run: |
-          checkov -d ./AUY1105-Infraestructura-como-codigo-II/EA1/ACT1.8 --quiet --soft-fail --check CKV_AWS_22
+          checkov -d ${{ inputs.path }} --quiet --soft-fail --check CKV_AWS_22
           
       - name: Upload Checkov results as artifacts
         uses: actions/upload-artifact@v3
