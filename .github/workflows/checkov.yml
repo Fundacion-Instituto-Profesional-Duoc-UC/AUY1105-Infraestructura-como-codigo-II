@@ -30,9 +30,3 @@ jobs:
       - name: Run Checkov on Terraform files
         run: |
           checkov -d ${{ inputs.path }}
-          
-      - name: Upload Checkov results as artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: checkov-results
-          path: checkov-report.json
