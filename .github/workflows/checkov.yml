@@ -1,0 +1,38 @@
+name: Terraform Action
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: "Path to the Terraform code"
+        required: true
+        type: string
+
+jobs:
+  checkov:
+    name: Run Checkov for Security Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Checkov
+        run: |
+          python -m pip install --upgrade pip
+          pip install checkov
+
+      - name: Run Checkov on Terraform files
+        run: |
+          checkov -d ./AUY1105-Infraestructura-como-codigo-II/EA1/ACT1.8 --quiet --soft-fail --check CKV_AWS_22
+          
+      - name: Upload Checkov results as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: checkov-results
+          path: checkov-report.json
