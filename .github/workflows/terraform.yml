@@ -1,0 +1,40 @@
+name: Terraform Action
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: "Path to the Terraform code"
+        required: true
+        type: string
+
+jobs:
+  terraform:
+    name: Terraform Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        working-directory: ${{ inputs.path }}
+        run: terraform init
+
+      - name: Run Terraform FMT
+        run: terraform fmt -check -recursive ${{ inputs.path }}
+
+      - name: Run Terraform Validate
+        working-directory: ${{ inputs.path }}
+        run: terraform validate
+
+      - name: Install TFLint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+      - name: Run TFLint
+        working-directory: ${{ inputs.path }}
+        run: tflint --minimum-failure-severity=error

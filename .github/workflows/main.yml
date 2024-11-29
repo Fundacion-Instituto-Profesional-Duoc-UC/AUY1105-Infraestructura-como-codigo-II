@@ -1,0 +1,13 @@
+name: Main Terraform Trigger
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  call-terraform-workflow:
+    name: Call Terraform Workflow
+    uses: ./.github/workflows/terraform.yml
+    with:
+      path: EA1/ACT1.7
