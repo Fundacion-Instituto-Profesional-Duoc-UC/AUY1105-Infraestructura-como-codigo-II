@@ -4,42 +4,46 @@
 
 ## DESARROLLO DE ACTIVIDAD
 
-### 1. Iniciar el Laboratorio Learner Lab en AWS Academy
+### 1. Revisar el Pull Request (PR)
 
-1. Accede a **AWS Academy** y selecciona el curso correspondiente.  
-2. Inicia el laboratorio Learner Lab haciendo clic en **Start Lab**.  
-3. Accede a la consola de AWS utilizando las credenciales temporales proporcionadas.
+- Accede al [Pull Request](https://github.com/Fundacion-Instituto-Profesional-Duoc-UC/AUY1105-Infraestructura-como-codigo-II/pull/1).
+- Examina el resultado del [Action](https://github.com/Fundacion-Instituto-Profesional-Duoc-UC/AUY1105-Infraestructura-como-codigo-II/actions/runs/12085036577/job/33701440564?pr=1) en el paso **Run TFLint**
 
-### 2. Crear una Instancia EC2
+### 2. Modificar el GitHub Action
 
-1. En la consola de AWS, ve al servicio **EC2**.  
-2. Haz clic en **Launch Instance** y configura los siguientes parámetros:
-   - Nombre: `Infraestructura-Actividad`
-   - Tipo de instancia: `t2.micro` (o el disponible en el lab)
-   - AMI: **Amazon Linux 2**
-   - Configura el almacenamiento y revisa las reglas de seguridad (permitir SSH, puerto 22).  
+1. Accede al archivo del workflow en el repositorio. Puede estar ubicado en .github/workflows/terraform.yml.
 
-3. Haz clic en **Launch** y selecciona o crea un par de claves para conectarte.
-
-### 3. Conectarse a la Instancia EC2
-
-1. Una vez que la instancia esté corriendo, haz clic en **Connect** y sigue las instrucciones para conectarte mediante SSH.  
-2. Usa el siguiente comando (ajustando el archivo de clave):
+2. Edita el comando para cambiar el nivel mínimo de severidad de error a warning en el paso donde se ejecuta tflint.
 
 ```bash
-   ssh -i "nombre-de-tu-clave.pem" ec2-user@<dirección-ip-pública>
+      - name: Run TFLint
+        working-directory: ${{ inputs.path }}
+        run: tflint --minimum-failure-severity=error
 ```
-
-### 4. Subir y Ejecutar el Script install.sh
-1. Sube el archivo a la instancia EC2:
 
 ```bash
-   scp -i "nombre-de-tu-clave.pem" install.sh ec2-user@<dirección-ip-pública>:~
+      - name: Run TFLint
+        working-directory: ${{ inputs.path }}
+        run: tflint --minimum-failure-severity=warning
 ```
 
-2. Conéctate nuevamente a la instancia y ejecuta el script:
+3. Guarda los cambios y asegúrate de hacer un commit en la rama correspondiente al PR.
 
-```bash
-chmod +x install.sh
-./install.sh
-```
+4. Ejecutar el Action y Revisar Resultados
+
+- Realiza un nuevo push en la rama del PR para que el workflow se ejecute nuevamente.
+- Observa los resultados del Action:
+Verifica si los warnings aparecen correctamente y si el flujo pasa sin fallar.
+Asegúrate de que tflint ahora solo informe warnings en lugar de detenerse.
+
+5. Corregir los warnings en los archivos Terraform
+
+## REFLEXIONES
+
+En esta actividad hemos explorado cómo los flujos de trabajo automatizados, como GitHub Actions, y las herramientas de análisis estático, como tflint, son esenciales para asegurar la calidad y seguridad en la infraestructura como código (IaC). Estos mecanismos automatizados no solo ayudan a identificar errores, sino que también fomentan las mejores prácticas y aseguran que el código cumpla con estándares establecidos.
+
+Uno de los aprendizajes clave es la importancia de los warnings y errors en los procesos de validación. Aunque los warnings no bloqueen la ejecución, señalan áreas que podrían convertirse en problemas críticos si no se abordan. La automatización, como vimos, nos permite detectar problemas temprano y mantener un ciclo de desarrollo ágil, pero requiere disciplina para interpretar y actuar sobre los resultados.
+
+Además, esta experiencia nos muestra cómo los pequeños detalles, como definir versiones de proveedores o la versión requerida de Terraform, pueden marcar una gran diferencia en la estabilidad del entorno. Esto subraya el valor de una mentalidad orientada a la mejora continua y la atención al detalle.
+
+Finalmente, recordar que el uso de IaC y la automatización no es solo una cuestión técnica, sino también una oportunidad para desarrollar hábitos profesionales que aseguren calidad, eficiencia y colaboración efectiva en equipos. La capacidad de interpretar resultados, corregir y aprender continuamente es la clave del éxito en un entorno de infraestructura moderna.
