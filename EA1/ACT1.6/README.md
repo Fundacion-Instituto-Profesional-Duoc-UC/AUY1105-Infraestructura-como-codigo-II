@@ -43,3 +43,43 @@
 chmod +x install.sh
 ./install.sh
 ```
+
+### 5. Ejecutar código Terraform
+
+1. Ejecuta el comando para inicializar el entorno de Terraform y descargar los providers necesarios.
+
+```bash
+terraform init
+```
+
+2. Exportar las Credenciales de AWS 
+```bash
+export AWS_ACCESS_KEY_ID=<tu_access_key_id>
+export AWS_SECRET_ACCESS_KEY=<tu_secret_access_key>
+export AWS_SESSION_TOKEN=<tu_session_token>
+```
+
+3. Generar el Plan de Terraform en Formato Binario
+```bash
+terraform plan -out=tfplan
+```
+
+4. Convertir el Plan Binario a Formato JSON
+```bash
+terraform show -json tfplan > tfplan.json
+```
+
+5. Ejecutar validación de seguridad en código Terraform
+```bash
+checkov -f tfplan.json
+```
+
+## REFLEXIONES
+
+- Importancia de la Seguridad por Diseño: La actividad resalta cómo la seguridad debe integrarse desde el inicio en los procesos de IaC. Los errores comunes como claves expuestas o configuraciones incorrectas pueden ser detectados a tiempo.
+
+- Automatización y consistencia: Utilizar herramientas como Terraform y Checkov automatiza la validación de la infraestructura, asegurando consistencia en la aplicación de buenas prácticas de seguridad.
+
+- Colaboración y mejora continua: Fomentar la cultura DevSecOps, donde todos los involucrados en el desarrollo y la operación están comprometidos con la seguridad, es clave para una infraestructura robusta.
+
+- Uso práctico de la nube y IaC: Conectar estos conceptos con casos reales prepara a los estudiantes para enfrentar escenarios del mundo laboral, alineados con estándares de seguridad de la industria.
