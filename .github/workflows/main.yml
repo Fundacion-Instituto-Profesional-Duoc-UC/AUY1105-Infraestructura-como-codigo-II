@@ -10,4 +10,4 @@ jobs:
     name: Call Terraform Workflow
     uses: ./.github/workflows/terraform.yml
     with:
-      path: AUY1105-Infraestructura-como-codigo-II/EA1/ACT1.7/
+      path: EA1/ACT1.7
