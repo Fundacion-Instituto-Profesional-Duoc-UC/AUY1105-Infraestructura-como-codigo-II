@@ -8,6 +8,6 @@ on:
 jobs:
   call-terraform-workflow:
     name: Call Terraform Workflow
-    uses: ./AUY1105-Infraestructura-como-codigo-II/EA1/ACT1.7/terraform.yml
+    uses: ./AUY1105-Infraestructura-como-codigo-II/EA1/ACT1.7/terraform.yml@develop
     with:
       path: AUY1105-Infraestructura-como-codigo-II/EA1/ACT1.7
