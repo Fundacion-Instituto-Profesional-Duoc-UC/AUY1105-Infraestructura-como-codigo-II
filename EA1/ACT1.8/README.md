@@ -19,6 +19,7 @@
       - name: Run Checkov on Terraform files
         run: |
           checkov -d ${{ inputs.path }}
+```
 
 ```bash
       - name: Run Checkov on Terraform files
