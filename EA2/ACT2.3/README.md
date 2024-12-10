@@ -4,4 +4,7 @@
 
 ## DESARROLLO DE ACTIVIDAD
 
+terraform-docs markdown ec2_module > ec2_module/README.md
+terraform-docs markdown vpc_module > vpc_module/README.md
+
 ## REFLEXIONES
