@@ -1,0 +1,8 @@
+key_name              = "dev-ssh-key"
+instance_name         = "dev-instance"
+vpc_name              = "dev-vpc"
+vpc_cidr              = "10.0.0.0/16"
+subnet_publica_1_cidr = "10.0.1.0/24"
+subnet_publica_2_cidr = "10.0.2.0/24"
+subnet_privada_1_cidr = "10.0.3.0/24"
+subnet_privada_2_cidr = "10.0.4.0/24"

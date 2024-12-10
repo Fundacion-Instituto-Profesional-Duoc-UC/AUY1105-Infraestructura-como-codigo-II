@@ -1,0 +1,8 @@
+key_name      = "qa-ssh-key"
+instance_name = "qa-instance"
+vpc_name      = "qa-vpc"
+vpc_cidr      = "10.1.0.0/16"
+subnet_publica_1_cidr = "10.1.1.0/24"
+subnet_publica_2_cidr = "10.1.2.0/24"
+subnet_privada_1_cidr = "10.1.3.0/24"
+subnet_privada_2_cidr = "10.1.4.0/24"
