@@ -29,5 +29,4 @@ crash.log
 .terraformrc
 terraform.rc
 
-# Archivos temporales o de respaldo generados por Go
-*go.*
+# Archivos temporales o de respaldo generados por
