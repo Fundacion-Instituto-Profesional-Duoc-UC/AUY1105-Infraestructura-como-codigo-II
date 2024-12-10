@@ -54,7 +54,15 @@ export AWS_SECRET_ACCESS_KEY=<tu_secret_access_key>
 export AWS_SESSION_TOKEN=<tu_session_token>
 ```
 
-Ejecuta los siguientes comandso para generar la documentación de Terraform asociada a los módulos:
+Ejecuta el siguiente comando para inicializar el entorno de Terraform (si no lo has hecho ya):
+
+```bash
+terraform init
+terraform plan
+terraform apply
+```
+
+Ejecuta los siguientes comandos para generar la documentación de Terraform asociada a los módulos:
 
 ```bash
 terraform-docs markdown ec2_module > ec2_module/README.md
