@@ -62,12 +62,50 @@ cd AUY1105-Infraestructura-como-codigo-II/ACT1.2
 ```bash
 tflint
 ```
-Revisa los mensajes de advertencia y error generados por la herramienta. Analiza los resultados y toma nota de las mejoras sugeridas.
+Revisa los mensajes de advertencia y error generados por la herramienta. Analiza los resultados y toma nota de las mejoras sugeridas. Tomemos como ejemplo uno de los errores:
 
-### Reflexión
+```bash
+Warning: terraform "required_version" attribute is required (terraform_required_version)
 
-- Importancia de TFLint: cómo ayuda a identificar problemas en configuraciones de Terraform antes de aplicarlas.
-- Ventajas de la automatización: se discutirá la relevancia de automatizar análisis estáticos para reducir errores y mejorar la calidad del código.
-- Aprendizaje autónomo: se fomentará la práctica de mejora continua mediante la aplicación de sugerencias en forks propios.
+  on terraform.tf line 0:
+   (source code not available)
+
+Reference: https://github.com/terraform-linters/tflint-ruleset-terraform/blob/v0.10.0/docs/rules/terraform_required_version.md
+```
+
+Para realizar la corrección, debemos incluir en el archivo **provider.tf** el atributo **required_version**:
+
+```bash
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+```
+
+Volvemos a ejecutar TFLint y verificamos los resultados:
+
+```bash
+tflint
+```
+
+## TRABAJO AUTÓNOMO
+
+Si quedan mas errores, revisa los resultados, analizalos y realiza los cambios propuestos, volviendo a ejecutar **tflint**. Una vez que no veas errores, puedes realizar un **pull request** al repositorio de la clase, con tu propuesta de cambios.
+
+## REFLEXIONES
+
+- **Fomentar la calidad del código IaC:** El análisis estático permite a los estudiantes identificar y corregir errores comunes en el código Terraform antes de desplegar infraestructura. Esto mejora la calidad del código, reduce riesgos de fallas y garantiza configuraciones seguras alineadas con las mejores prácticas.
+
+- **Adoptar estándares y optimización en IaC:** Herramientas de análisis estático ayudan a verificar el cumplimiento de estándares organizacionales y normativos, optimizando el rendimiento del código y asegurando que sea mantenible a largo plazo.
+
+- **Desarrollar habilidades prácticas con herramientas modernas:** Comprender y usar herramientas como Checkov o TFLint fortalece las habilidades prácticas de los estudiantes, preparándolos para implementar IaC con confianza en entornos reales y mejorar la eficiencia operativa.
 
 
