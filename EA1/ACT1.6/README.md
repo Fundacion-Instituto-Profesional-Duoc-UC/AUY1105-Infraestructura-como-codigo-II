@@ -120,7 +120,7 @@ Check: CKV_AWS_8: "Ensure all data stored in the Launch configuration or instanc
 
 ## TRABAJO AUTÓNOMO
 
-Realizaremos los pasos de corrección en todas las otras alertas (en caso que apliquen), y actualizaremos nuestro código con estas sugerencias.
+Realizaremos los pasos de corrección en todas las otras alertas (en caso que apliquen), y actualizaremos nuestro código con estas sugerencias. Posterior a realizarlo, podemos realizar un **pull request** al repositorio de la clase.
 
 ## REFLEXIONES
 
