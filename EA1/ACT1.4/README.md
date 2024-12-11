@@ -44,6 +44,32 @@ chmod +x install.sh
 ./install.sh
 ```
 
+Para conectar correctamente a la instancia generada, asegurate que en el archivo **ec2.tf** actualices el valor de **public_key** con el que generaste a partir del manual **Manual Creación Llave SSH**
+
+```bash
+resource "aws_key_pair" "mi_key" {
+  key_name   = "mi_key_name"
+  public_key = # MI LLAVE PUBLICA
+}
+```
+
+Intenta conectar con la Instancia EC2 que creaste a partir del código terraform, y verifica que con tu llave privada y el comando de conexión puedas establecer la conexión mediante SSH.
+
+Exporta las Credenciales de AWS 
+```bash
+export AWS_ACCESS_KEY_ID=<tu_access_key_id>
+export AWS_SECRET_ACCESS_KEY=<tu_secret_access_key>
+export AWS_SESSION_TOKEN=<tu_session_token>
+```
+
+Ejecuta el siguiente comando para inicializar el entorno de Terraform (si no lo has hecho ya):
+
+```bash
+terraform init
+terraform plan
+terraform apply
+```
+
 ### 5. Modificar el Código Terraform
 
 Actualiza el recurso `aws_security_group` para restringir el acceso SSH a una dirección IP específica (por ejemplo, `192.168.1.100/32`):
@@ -78,20 +104,11 @@ resource "aws_security_group" "ssh_access" {
 
 ### 6. Aplicar los Cambios en Terraform
 
-Exporta las Credenciales de AWS 
 ```bash
-export AWS_ACCESS_KEY_ID=<tu_access_key_id>
-export AWS_SECRET_ACCESS_KEY=<tu_secret_access_key>
-export AWS_SESSION_TOKEN=<tu_session_token>
-```
-
-Ejecuta el siguiente comando para inicializar el entorno de Terraform (si no lo has hecho ya):
-
-```bash
-terraform init
-terraform plan
 terraform apply
 ```
+Intenta conectar con la Instancia EC2 que actualizaste a partir del código terraform, y verifica que con tu llave privada y el comando de conexión puedas establecer la conexión mediante SSH, ya no deberías poder hacerlo, debido a que ahora la única IP de Acceso es la que se definió en el bloque nuevo de código, por motivos de seguridad. (**192.168.1.100/32**)
+
 ### 7. Actualizar el Archivo CHANGELOG.md
 
 Modifica el archivo CHANGELOG.md en el directorio del proyecto y añade una nueva entrada documentando el cambio realizado.
@@ -120,26 +137,14 @@ git push origin main
 - En la sección Release title, escribe un título como "Actualización de grupo de seguridad para acceso SSH".
 
 
-Reflexionamos sobre los cambios aplicados y comentamos sobre:
+## TRABAJO AUTÓNOMO
 
-1. Transparencia y Trazabilidad
-Un changelog bien mantenido proporciona transparencia sobre los cambios realizados en el proyecto, lo que facilita a cualquier miembro del equipo (o a las partes interesadas) comprender qué modificaciones se han hecho, cuándo y por qué. Esto es crucial cuando varios colaboradores trabajan en un mismo proyecto, ya que permite entender el impacto de las decisiones tomadas a lo largo del tiempo. Además, la trazabilidad es vital para auditar la infraestructura y las configuraciones que se despliegan.
+Intenta realizar algun otro cambio que consideres pertinente, y genera un nuevo TAG, Release y actualiza el Changelog de acuerdo a lo visto en clases.
 
-2. Historial de Cambios
-El changelog actúa como un registro histórico de los cambios en el proyecto. En proyectos de infraestructura como código, cada cambio puede implicar modificaciones en la arquitectura, configuración de recursos, o políticas de seguridad. Documentar adecuadamente estos cambios asegura que el historial completo esté disponible y accesible. Esto es útil no solo para la colaboración en equipo, sino también para solucionar problemas en el futuro. Si se presenta un fallo o una incidencia, un changelog detallado puede ayudar a identificar rápidamente qué cambio causó el problema.
+## REFLEXIONES
 
-3. Comunicación Eficaz entre Equipos
-Un changelog sirve como una herramienta de comunicación entre equipos de desarrollo, operaciones y otros interesados. Al mantener un changelog actualizado y claro, se facilita la comprensión de los cambios que afectan a la infraestructura. Además, un buen changelog puede ayudar a alinear a todos los equipos respecto a la versión y estado actual del proyecto, evitando malentendidos o problemas debido a versiones desactualizadas o mal gestionadas.
+- **Mejora en la comunicación y colaboración:** El uso de changelogs y convenciones de versionado semántico asegura que los equipos puedan entender y rastrear los cambios en el proyecto de manera eficiente. Esto fomenta una comunicación clara entre los desarrolladores y usuarios finales sobre las actualizaciones y el progreso del software.
 
-4. Documentación de Decisiones
-A menudo, en proyectos de infraestructura, las decisiones que se toman tienen implicaciones más allá del código inmediato. Por ejemplo, cambiar una configuración de seguridad o actualizar una política de acceso puede tener un impacto en la arquitectura o en la privacidad de los datos. Mantener un changelog ayuda a documentar esas decisiones de manera explícita, lo que resulta valioso cuando se necesita justificar una decisión ante un cliente, auditoría o durante la planificación de futuras modificaciones.
+- **Mantenimiento y evolución del proyecto:** Establecer lineamientos claros para la gestión de versiones facilita la identificación de problemas potenciales, asegura la compatibilidad entre versiones y simplifica el mantenimiento a largo plazo del código.
 
-5. Facilita la Colaboración y el Trabajo en Equipo
-Un changelog bien estructurado facilita la colaboración en equipo al permitir que todos los miembros del equipo tengan acceso a la misma información. En un entorno de infraestructura como código, los cambios pueden ser rápidos y frecuentes, por lo que tener una fuente centralizada y actualizada de todos los cambios reduce la posibilidad de que se pasen por alto detalles importantes.
-
-6. Mejora la Gestión de Versiones
-El control de versiones no solo es relevante para el código, sino también para la infraestructura. Mantener un changelog permite llevar un control de las versiones de las configuraciones y recursos gestionados. Cuando se trabaja con Terraform, por ejemplo, las actualizaciones de infraestructura a menudo deben ser revisadas y aprobadas antes de su despliegue. Tener un changelog claro ayuda a gestionar estos cambios de manera eficiente, ya que proporciona una línea de tiempo de las versiones previas y las actualizaciones, lo que es crucial para la planificación de nuevos despliegues.
-
-7. Mejora la Experiencia de los Desarrolladores
-Cuando un equipo de desarrollo trabaja con infraestructura como código, tener un changelog bien estructurado les ayuda a reducir la curva de aprendizaje. Nuevos desarrolladores o colaboradores pueden consultar el changelog para entender rápidamente cómo ha evolucionado el proyecto, las versiones anteriores y las decisiones clave que se tomaron, sin tener que revisar todo el código o preguntar a otros miembros del equipo.
-
+- **Transparencia y confianza:** Un flujo de trabajo bien documentado en GitHub mejora la confianza de los usuarios finales y de los colaboradores al ofrecer visibilidad sobre la evolución del software y las decisiones tomadas a lo largo del tiempo.
