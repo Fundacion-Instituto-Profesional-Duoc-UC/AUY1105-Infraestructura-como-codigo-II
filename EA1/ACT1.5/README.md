@@ -95,12 +95,14 @@ Ejecuta nuevamente la evaluación de la política, y valida los resultados
 opa eval -i tfplan.json -d terraform_security.rego "data.terraform.authz.allow"
 ```
 
-### REFLEXIONES
+## TRABAJO AUTÓNOMO
 
-- Automatización y Seguridad: Utilizar herramientas como Terraform y OPA mejora significativamente la automatización y garantiza que las configuraciones cumplan con las políticas de seguridad antes de ser aplicadas. Esto minimiza errores humanos y reduce riesgos de seguridad.
+Crea una politica asociada a otro recurso, siguiendo esta [documentación](https://www.openpolicyagent.org/docs/latest/terraform/), puedes utilizar como referencia cualquier recurso permitido dentro del Laboratorio de AWS.
 
-- Validación Proactiva: La validación proactiva con OPA permite detectar configuraciones inseguras, como claves SSH no permitidas o acceso global a puertos sensibles, antes de que se implementen, asegurando un entorno más seguro.
+## REFLEXIONES
 
-- Documentación y Mantenimiento: Es crucial mantener actualizados los archivos .rego y las políticas para reflejar los cambios en los requisitos de seguridad. Una buena documentación ayuda a otros equipos a comprender y utilizar estas prácticas de manera efectiva.
+- **Fortalecimiento de la seguridad y cumplimiento:** La implementación de políticas con Open Policy Agent (OPA) permite reforzar estándares de seguridad, asegurando que la infraestructura gestionada con Terraform cumpla con regulaciones organizacionales y normativas específicas.
 
-- Aprendizaje Continuo: Este ejercicio subraya la importancia de entender cómo las políticas de seguridad interactúan con las configuraciones de infraestructura como código, fomentando un aprendizaje constante sobre las mejores prácticas de seguridad en la nube.
+- **Prevención de errores y vulnerabilidades:** Establecer controles declarativos ayuda a los equipos a identificar configuraciones inseguras o inapropiadas en el código IaC antes de la implementación, reduciendo riesgos y mejorando la confiabilidad del entorno.
+
+- **Estandarización y eficiencia operativa:** Utilizar OPA fomenta una validación automatizada y centralizada de políticas, simplificando la adopción de buenas prácticas y garantizando consistencia en el manejo de infraestructuras a lo largo de los equipos.
