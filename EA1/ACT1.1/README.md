@@ -31,7 +31,32 @@ cd AUY1105-Infraestructura-como-codigo-II
 ```bash
 code .
 ```
-- Realiza un cambio pequeño, como corregir un comentario, actualizar documentación o modificar una línea de código simple.
+- Realiza un cambio pequeño, como corregir un comentario, actualizar documentación o modificar una línea de código simple. Por ejemplo, en el archivo **provider.tf** podrías mejorar la manera en la que se declara el provider:
+
+**ANTES**
+
+```bash
+provider "aws" {
+  region = "us-east-1"
+}
+```
+
+**DESPUÉS**
+```bash
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+```
+
 - Guarda los cambios y ejecuta los siguientes comandos para hacer commit y subir los cambios:
 ```bash
 git add .
