@@ -74,6 +74,54 @@ terraform show -json tfplan > tfplan.json
 checkov -f tfplan.json
 ```
 
+6. Revisaremos uno de los cambios sugeridos, y realizaremos un cambio para validar como mediante la revisión de sugerencias entregadas por checkov, podemos mejorar nuestro código. Para ello, tomaremos como ejemplo la siguiente sugerencia:
+
+```bash
+Check: CKV_AWS_8: "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted"
+        FAILED for resource: aws_instance.mi_ec2
+        File: /tfplan.json:0-0
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13
+```
+
+Para corregir, deberemos modificar en nuestro archivo **ec2.tf** el recurso **aws_instance** incluyendo el bloque **root_block_device**, agregando encriptación:
+
+```bash
+root_block_device {    
+    encrypted   = true
+  }
+```
+
+Volvemos a generar el Plan de Terraform en Formato Binario:
+
+```bash
+terraform plan -out=tfplan
+```
+
+Convertir nuevamente el Plan Binario a Formato JSON:
+
+```bash
+terraform show -json tfplan > tfplan.json
+```
+
+5. Ejecutar nuevamente la validación de seguridad en código Terraform:
+
+```bash
+checkov -f tfplan.json
+```
+
+Verificamos la alerta que en la ejecución anterior falló, y vemos que ahora el estado cambia de **FAILED** a **PASSED**:
+
+```bash
+Check: CKV_AWS_8: "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted"
+        PASSED for resource: aws_instance.mi_ec2
+        File: /tfplan.json:0-0
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13
+```
+
+## TRABAJO AUTÓNOMO
+
+Realizaremos los pasos de corrección en todas las otras alertas (en caso que apliquen), y actualizaremos nuestro código con estas sugerencias.
+
 ## REFLEXIONES
 
 - Importancia de la Seguridad por Diseño: La actividad resalta cómo la seguridad debe integrarse desde el inicio en los procesos de IaC. Los errores comunes como claves expuestas o configuraciones incorrectas pueden ser detectados a tiempo.
@@ -81,5 +129,3 @@ checkov -f tfplan.json
 - Automatización y consistencia: Utilizar herramientas como Terraform y Checkov automatiza la validación de la infraestructura, asegurando consistencia en la aplicación de buenas prácticas de seguridad.
 
 - Colaboración y mejora continua: Fomentar la cultura DevSecOps, donde todos los involucrados en el desarrollo y la operación están comprometidos con la seguridad, es clave para una infraestructura robusta.
-
-- Uso práctico de la nube y IaC: Conectar estos conceptos con casos reales prepara a los estudiantes para enfrentar escenarios del mundo laboral, alineados con estándares de seguridad de la industria.
