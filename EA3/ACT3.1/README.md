@@ -153,5 +153,13 @@ terraform plan
 ```bash
 terraform apply
 ```
+## TRABAJO AUTÓNOMO
+
 
 ##  REFLEXIONES
+
+- **Gestión Segura y Controlada del Estado:** Manipular los archivos de estado en Terraform es una actividad crítica que requiere planificación cuidadosa y medidas de seguridad para evitar inconsistencias y garantizar la estabilidad de la infraestructura.
+
+- **Aprendizaje Práctico y Estructurado:** Proporcionar ejemplos claros y pasos detallados permite a los estudiantes adquirir habilidades prácticas para realizar tareas avanzadas, como mover, renombrar o importar recursos, de manera ordenada y sin comprometer la infraestructura.
+
+- **Minimización de Riesgos:** Diseñar procedimientos seguros y realizar respaldos previos asegura que los estudiantes comprendan la importancia de mitigar riesgos al trabajar con archivos de estado, promoviendo prácticas confiables en la gestión de infraestructura como código.
