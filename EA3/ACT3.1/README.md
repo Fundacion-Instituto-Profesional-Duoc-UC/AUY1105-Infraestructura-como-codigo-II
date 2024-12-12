@@ -62,4 +62,96 @@ terraform plan
 terraform apply
 ```
 
+### 6. Archivo de estado de Terraform
+
+El [archivo de estado de Terraform](https://developer.hashicorp.com/terraform/language/state) contiene las siguientes claves principales:
+
+- version: Versión del formato del archivo de estado.
+- terraform_version: Versión de Terraform utilizada para generar el archivo.
+- serial: Número de serie del archivo de estado, que aumenta con cada cambio.
+- lineage: Identificador único del archivo de estado.
+- outputs: Valores de salida definidos en las configuraciones de Terraform.
+- resources: Recursos gestionados por Terraform.
+- check_results: Resultados de verificaciones, si las hay.
+
+Para la ejecución práctica realizaremos las siguientes acciones:
+
+1. **Revisar el Archivo de Estado**
+
+Abre el archivo de estado con un editor de texto o usa el comando:
+
+```bash
+terraform state list
+```
+
+Realiza un backup del estado, como una buena práctica de resiliencia y recuperación:
+
+```bash
+cp terraform.tfstate terraform.tfstate.bak
+```
+
+2. **Agregar**
+
+Si necesitas gestionar un recurso existente con Terraform:
+
+```bash
+terraform import module.vpc.aws_eip.nat_eip eipalloc-12345678
+```
+
+**terraform import:** Este comando asocia el recurso existente (en este caso, un EIP identificado por eipalloc-12345678) con la configuración de Terraform. Asegura que Terraform comience a gestionar este recurso.
+
+Después de importar, revisa que el estado y la configuración sean consistentes:
+
+```bash
+terraform plan
+```
+
+Si el plan es correcto, ejecuta:
+
+```bash
+terraform apply
+```
+
+3. **Mover**
+
+```bash
+terraform state mv module.ec2.aws_instance.mi_ec2 module.new_ec2.aws_instance.mi_ec2
+```
+
+```bash
+terraform plan
+```
+
+```bash
+terraform apply
+```
+
+4. **Renombrar**
+
+```bash
+terraform state mv module.ec2.aws_key_pair.mi_key module.ec2.aws_key_pair.new_key
+```
+
+```bash
+terraform plan
+```
+
+```bash
+terraform apply
+```
+
+5. **Eliminar**
+
+```bash
+terraform state rm module.ec2.aws_security_group.ssh_access
+```
+
+```bash
+terraform plan
+```
+
+```bash
+terraform apply
+```
+
 ##  REFLEXIONES

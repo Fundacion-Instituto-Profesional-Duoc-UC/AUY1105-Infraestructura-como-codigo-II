@@ -1,0 +1,32 @@
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Terraform plan files
+*.tfplan
+
+# Terraform variable files con datos sensibles
+*.tfvars
+*.tfvars.json
+
+# Override files (opcional)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Archivos de configuración generados automáticamente por Terraform
+.terraform/
+.terraform.lock.hcl
+
+# Logs de Terraform
+crash.log
+
+# Archivos de salida del comando Terraform (si se guardan localmente)
+*.out
+
+# Archivos de credenciales (AWS u otros proveedores)
+.terraformrc
+terraform.rc
+
+# Archivos temporales o de respaldo generados por
