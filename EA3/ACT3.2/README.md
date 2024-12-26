@@ -62,4 +62,63 @@ terraform plan
 terraform apply
 ```
 
+### Recuperar un estado de terraform
+
+1. **Realizar Backup de archivo de estado**
+
+Abre el archivo de estado con un editor de texto o usa el comando:
+
+```bash
+terraform state list
+```
+
+Realiza un backup del estado, como una buena práctica de resiliencia y recuperación:
+
+```bash
+terraform state pull > terraform.tfstate.bak
+```
+
+2. **Alterar elemento para modificar el estado**
+
+```bash
+terraform state rm module.ec2.aws_instance.mi_ec2
+```
+
+Desde la consola de AWS, elimina la instancia previamente creada de manera manual. Luego deberás ejecutar un **terraform plan** y un **terraform apply**
+
+```bash
+terraform plan
+```
+
+```bash
+terraform apply
+```
+
+3. **Recuperar el respaldo del archivo de estado de terraform**
+
+```bash
+cp terraform.tfstate terraform.tfstate.broken
+cp terraform.tfstate.backup terraform.tfstate
+```
+
+Desde la consola de AWS, elimina la instancia previamente creada de manera manual. Luego deberás ejecutar un **terraform plan** y un **terraform apply**
+
+```bash
+terraform plan
+```
+
+```bash
+terraform apply
+```
+
+## TRABAJO AUTÓNOMO
+
+Intenta realizar la accion de modificar el estado sobre acciones y recuperarlo de manera segura. Recuerda previamente realizar un backup de tu estado.
+
 ##  REFLEXIONES
+
+- **La importancia de las copias de seguridad:** Durante la realización de esta actividad, se destaca el valor crítico de mantener copias de seguridad actualizadas del archivo de estado de Terraform. Este archivo actúa como la única fuente de verdad para la infraestructura gestionada, y su pérdida puede causar desajustes significativos entre los recursos reales y la configuración deseada. Implementar políticas de respaldo y automatizar su gestión no solo protege contra fallos técnicos, sino que también reduce el tiempo de recuperación en situaciones de crisis.
+
+- **Comprensión de los riesgos asociados al estado:** La actividad permite comprender que los archivos de estado no solo son susceptibles a errores humanos, como eliminaciones accidentales, sino también a problemas técnicos, como corrupción de datos o errores de sincronización con backends remotos. Gestionar adecuadamente el estado implica no solo proteger el archivo, sino también implementar controles que minimicen los riesgos, como el uso de almacenamiento remoto seguro y configuraciones adecuadas en Terraform.
+
+- **Preparación para manejar imprevistos:** Este ejercicio subraya la importancia de estar preparado para enfrentar situaciones inesperadas relacionadas con el estado de Terraform. Más allá de la restauración técnica, se fomenta el desarrollo de habilidades analíticas para diagnosticar problemas, tomar decisiones rápidas y garantizar la continuidad operativa. Documentar procedimientos y reflexionar sobre las lecciones aprendidas es clave para fortalecer las estrategias de recuperación y mejorar la resiliencia de los entornos gestionados.
