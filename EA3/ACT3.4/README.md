@@ -53,7 +53,6 @@ export AWS_ACCESS_KEY_ID=<tu_access_key_id>
 export AWS_SECRET_ACCESS_KEY=<tu_secret_access_key>
 export AWS_SESSION_TOKEN=<tu_session_token>
 ```
-
 Ejecuta el siguiente comando para inicializar el entorno de Terraform (si no lo has hecho ya):
 
 ```bash
@@ -62,4 +61,28 @@ terraform plan
 terraform apply
 ```
 
+6. Revisa el archivo teraform.tf adjunto, y analiza posibles mejoras en base a lo aprendido que se puedan implementar:
+
+- **Organización de archivos:** Mantener una estructura modular que separe los diferentes componentes del código en archivos específicos mejora la claridad, facilita el mantenimiento y favorece el trabajo en equipo.
+- **Versiones requeridas:** Bloquea versiones de proveedores para evitar cambios no controlados.
+- **Hardcoded values:** Regiones, zonas de disponibilidad y otros valores están codificados, lo que dificulta la reutilización y escalabilidad.
+- **Dependencias no explícitas:** Terraform podría no entender el orden correcto de los recursos.
+- **Sin paralelización:** No se utilizan técnicas que permitan aprovechar la ejecución paralela.
+- **Backend sin configuración:** No se utiliza un backend remoto para almacenar el estado.
+
+
+7. Una vez que apliques los cambios, ejecuta el siguiente comando para inicializar el entorno de Terraform (si no lo has hecho ya):
+
+```bash
+terraform init
+terraform plan
+terraform apply
+```
+
 ##  REFLEXIONES
+
+- **La optimización como base de la gestión eficiente:** La actividad muestra cómo optimizar la ejecución de Terraform mejora la productividad al reducir tiempos de aplicación y recursos utilizados. Estas mejoras son clave para equipos que trabajan en sistemas complejos, ya que permiten disminuir tiempos de inactividad y aumentar la disponibilidad de recursos.
+
+- **Equilibrio entre rendimiento y estabilidad:** Mejorar el rendimiento sin comprometer la estabilidad es un desafío central. La paralelización y la correcta gestión de dependencias reducen tiempos de ejecución, manteniendo la confiabilidad de la infraestructura.
+
+- **Aprendizaje práctico para mejora continua:** Los ejemplos y recomendaciones permiten a los estudiantes comprender mejor Terraform, identificar cuellos de botella y optimizar procesos. Esto fomenta habilidades críticas y una mentalidad de mejora constante en la gestión de infraestructuras.
