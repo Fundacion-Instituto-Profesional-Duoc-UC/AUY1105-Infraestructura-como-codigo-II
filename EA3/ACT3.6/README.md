@@ -52,6 +52,7 @@ Exporta las Credenciales de AWS
 export AWS_ACCESS_KEY_ID=<tu_access_key_id>
 export AWS_SECRET_ACCESS_KEY=<tu_secret_access_key>
 export AWS_SESSION_TOKEN=<tu_session_token>
+export HCP_API_TOKEN=<tu_hcp_api_token>
 ```
 
 Ejecuta el siguiente comando para inicializar el entorno de Terraform (si no lo has hecho ya):
@@ -62,4 +63,51 @@ terraform plan
 terraform apply
 ```
 
+6. Configuración de HCP para un Backend Remoto:
+
+Para poder avanzar, necesitamos previamente realizar nuestra propia configuracion de un backend remoto mediante HCP, para ello deberemos seguir los siguientes pasos:
+
+- Crear una organización, siguiendo la [documentación oficial](https://developer.hashicorp.com/hcp/docs/hcp/admin/orgs#create-an-organization)
+
+- Crear un workspace, siguiendo la [documentación oficial](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started/cloud-workspace-create)
+
+- Definir variables de AWS, siguiendo la [documentación oficial](https://developer.hashicorp.com/terraform/tutorials/cloud/cloud-multiple-variable-sets)
+
+7. Aplicar cambios en el código
+
+Descomentar lineas de código comentadas en los siguientes archivos:
+
+- **variables.tf:** Habilitar la variable que define el HCP Token.
+- **provider.tf:** Habilitar la definición del provider con la organización y el workspace, junto con la definición del provider.
+
+8. Ejecución de actualización con estos cambios
+
+Primero, debemos hacer un [terraform login](https://developer.hashicorp.com/terraform/cli/commands/login) y previamente deberemos haber creado un [terraform token](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started/cloud-login#generate-a-token)
+
+```bash
+terraform login
+```
+
+Posteriormente, haremos un terraform init, donde nos pedirá confirmación de la migración de nuestro backend local a un backend remoto.
+
+```bash
+terraform init
+```
+Para mayor detalle, podemos revisar la [documentación oficial de migración](https://developer.hashicorp.com/terraform/tutorials/cloud/cloud-migrate)
+
+Para finalizar el proceso de migración, realizaremos un refresh para actualizar nuestro nuevo estado migrado:
+
+```bash
+terraform apply -refresh-only
+```
+
+Verifica que ahora en el state del workspace en tu organización, tienes el estado de terraform ya migrado.
+
 ##  REFLEXIONES
+
+- **Gestión del estado en Terraform:** Los estudiantes aprenden la importancia de gestionar correctamente el estado de Terraform, ya que es esencial para mantener la consistencia de los recursos y evitar errores en la infraestructura.
+
+- **Backend remoto para colaboración:** Migrar de un backend local a uno remoto con HCP facilita la colaboración, asegurando que el estado esté centralizado y accesible por todo el equipo, lo que mejora la eficiencia y la seguridad.
+
+- **Integración con herramientas en la nube:** La actividad permite a los estudiantes desarrollar habilidades en la automatización de la infraestructura y la gestión de credenciales, lo cual es clave para trabajar en entornos de nube y con herramientas de infraestructura como código.
+
