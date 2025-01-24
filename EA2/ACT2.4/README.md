@@ -2,6 +2,8 @@
 
 # EJEMPLOS AVANZADOS DE IMPLEMENTACIÓN DEL MÓDULO
 
+En el desarrollo y administración de infraestructura en la nube, trabajar con múltiples ambientes, como desarrollo (dev), pruebas (qa) y producción (prod), no solo es una buena práctica, sino una necesidad crítica para garantizar la estabilidad, seguridad y confiabilidad de las aplicaciones y servicios.
+
 ## DESARROLLO DE ACTIVIDAD
 
 ### 1. Iniciar el Laboratorio Learner Lab en AWS Academy
@@ -59,6 +61,13 @@ Ejecuta el siguiente comando para inicializar el entorno de Terraform (si no lo 
 ```bash
 terraform init
 terraform plan
+```
+Como sugerencia, en caso que se requiera comparar las diferencias entre los planes con el uso de los distintos archivos de variables, pueden ejecutar los planes por separado:
+
+```bash
+terraform plan -var-file="dev.tfvars" -out=plan-dev.out
+terraform plan -var-file="qa.tfvars" -out=plan-qa.out
+terraform plan -var-file="prod.tfvars" -out=plan-prod.out
 ```
 
 Ejecuta en el siguiente orden, los comandos en función de sus variables de entorno, definidas en archivos terminados en *.tfvars:
@@ -119,6 +128,15 @@ resource "aws_lb_target_group" "app_tg" {
   vpc_id   = module.vpc.vpc_id
 }
 ```
+
+## TRABAJO AUTONOMO
+
+Para profundizar en la implementación de variables, renombra una de las variables en el módulo vpc_module. Por ejemplo, cambia la variable vpc_cidr por un nombre más descriptivo, como vpc_network_cidr. Asegúrate de hacer este cambio en todos los lugares del módulo y en el archivo principal que hace referencia a esa variable.
+
+- Cambia la variable en el archivo variables.tf de vpc_cidr a vpc_network_cidr.
+- Actualiza todas las referencias a vpc_cidr dentro de los archivos del módulo vpc_module.
+- Después, modifica el archivo principal para que también haga referencia a la nueva variable vpc_network_cidr.
+- Ejecuta terraform plan para asegurarte de que todos los cambios están correctamente implementados y que no hay errores.
 
 ## REFLEXIONES
 
