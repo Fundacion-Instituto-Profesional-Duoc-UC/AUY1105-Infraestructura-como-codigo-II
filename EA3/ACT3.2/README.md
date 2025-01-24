@@ -66,6 +66,8 @@ terraform apply
 
 1. **Realizar Backup de archivo de estado**
 
+Antes de realizar cualquier modificación significativa en la infraestructura gestionada por Terraform, es fundamental hacer una copia de seguridad del archivo de estado. Esto nos permitirá restaurar el estado anterior en caso de que algo salga mal o si necesitamos revertir los cambios.
+
 Abre el archivo de estado con un editor de texto o usa el comando:
 
 ```bash
@@ -80,11 +82,14 @@ terraform state pull > terraform.tfstate.bak
 
 2. **Alterar elemento para modificar el estado**
 
+Ahora realizamos una acción que modifica el archivo de estado: eliminamos un recurso del estado de Terraform usando el comando terraform state rm. Este paso no elimina el recurso de la infraestructura, sino que simplemente lo quita del seguimiento de Terraform.
+
 ```bash
 terraform state rm module.ec2.aws_instance.mi_ec2
 ```
 
 Desde la consola de AWS, elimina la instancia previamente creada de manera manual. Luego deberás ejecutar un **terraform plan** y un **terraform apply**
+
 
 ```bash
 terraform plan
@@ -95,6 +100,8 @@ terraform apply
 ```
 
 3. **Recuperar el respaldo del archivo de estado de terraform**
+
+En este paso, restauramos el archivo de estado utilizando el backup que creamos en el paso 1. Esto es importante porque, después de haber eliminado un recurso del estado, Terraform ya no tiene la referencia de ese recurso. Si intentamos aplicar cambios sin restaurar el estado anterior, Terraform podría intentar recrear el recurso, incluso si ya existe en la infraestructura.
 
 ```bash
 cp terraform.tfstate terraform.tfstate.broken
