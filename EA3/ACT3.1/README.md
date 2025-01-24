@@ -78,21 +78,42 @@ Para la ejecución práctica realizaremos las siguientes acciones:
 
 1. **Revisar el Archivo de Estado**
 
+Antes de realizar cualquier cambio, es importante entender el estado actual de los recursos gestionados por Terraform. El archivo de estado es crucial para saber qué recursos están siendo gestionados y cómo Terraform ha configurado tu infraestructura.
+
 Abre el archivo de estado con un editor de texto o usa el comando:
 
 ```bash
 terraform state list
 ```
 
-Realiza un backup del estado, como una buena práctica de resiliencia y recuperación:
+Este comando te mostrará todos los recursos gestionados en tu estado actual. Es importante revisar esta lista antes de realizar cambios para saber el impacto que tendrá cualquier acción posterior.
+
+2. **Realiza un backup del estado, como una buena práctica de resiliencia y recuperación**
+
+Antes de realizar cualquier operación que modifique el estado de Terraform, como eliminar o agregar recursos, siempre es una buena práctica hacer una copia de seguridad del archivo de estado. Esto asegura que puedes restaurar la infraestructura a su estado anterior si algo sale mal.
 
 ```bash
 terraform state pull > terraform.tfstate.bak
 ```
 
+¿Por qué es importante realizar un backup? El archivo de estado es esencial para la operación de Terraform. Sin él, no podemos aplicar cambios de manera confiable ni hacer un seguimiento de qué recursos se han creado, modificado o destruido. El backup te permite restaurar el estado a un punto anterior si algo sale mal.
+
+3. **Eliminar un recurso**
+
+En este paso, eliminamos un recurso del estado de Terraform. Este comando no destruye el recurso en la nube, solo lo elimina del archivo de estado. Esto significa que Terraform dejará de gestionar ese recurso, pero el recurso continuará existiendo en la infraestructura.
+
 ```bash
 terraform state rm module.ec2.aws_instance.mi_ec2
 ```
+
+**¿Qué sucede cuando usamos terraform state rm?**
+Este comando elimina el recurso del archivo de estado, lo que significa que Terraform ya no lo rastreará ni lo gestionará. El recurso permanece en la infraestructura, pero ya no se puede aplicar cambios a través de Terraform.
+
+**¿Por qué usar terraform state rm?**
+Este comando es útil si quieres que Terraform deje de gestionar un recurso sin destruirlo, por ejemplo, cuando estás manejando un recurso fuera de Terraform o si necesitas manejarlo manualmente.
+
+**Comportamiento esperado:** 
+El recurso mi_ec2 se eliminará del estado, pero no se destruirá en la infraestructura. Si intentamos aplicar Terraform nuevamente sin importarlo, Terraform intentará recrearlo, ya que el estado ahora no tiene conocimiento de este recurso.
 
 ```bash
 terraform plan
@@ -101,6 +122,9 @@ terraform plan
 ```bash
 terraform apply
 ```
+
+**¿Qué sucede al aplicar los cambios?**
+Terraform intentará crear de nuevo el recurso mi_ec2 en la infraestructura, aunque este ya exista. Esto se debe a que, desde la perspectiva de Terraform, el recurso fue eliminado del estado, por lo que lo considera un recurso a crear.
 
 ## TRABAJO AUTÓNOMO
 
