@@ -90,6 +90,32 @@ module "ec2" {
 }
 ```
 
+## TRABAJO AUTÓNOMO
+
+El objetivo de esta sección es que los estudiantes apliquen los conocimientos adquiridos para desarrollar una solución propia utilizando Terraform y AWS. Sigue las indicaciones, pero personaliza cada aspecto para lograr un diseño que se ajuste a tus necesidades.
+
+### Personalización del Módulo EC2
+Modifica el archivo de configuración de Terraform para crear dos instancias EC2 adicionales con las siguientes características:
+
+- Una instancia en una subred pública distinta a la ya configurada.
+- Otra instancia en una subred privada.
+- Cambia los nombres de las instancias y selecciona un tipo de instancia diferente (por ejemplo, t3.micro o el permitido en el laboratorio).
+
+Ajusta las reglas de seguridad para que:
+
+- La instancia en la subred pública permita acceso por SSH desde tu IP pública.
+- La instancia en la subred privada pueda ser alcanzada desde la instancia pública mediante el puerto 22 (SSH).
+- Genera un nuevo par de claves para las instancias adicionales y asegúrate de configurarlo en el código de Terraform.
+
+### Creación de un Módulo Propio
+
+Diseña un módulo nuevo llamado s3_module que permita crear un bucket de Amazon S3 con las siguientes características:
+
+- Nombre único basado en un prefijo y un sufijo que defines en las variables del módulo.
+- Habilitación del versionado de objetos.
+- Reglas de acceso que permitan acceso público de solo lectura a los archivos.
+- Agrega el módulo al archivo principal de Terraform y configúralo con tus propias variables.
+
 ## REFLEXIONES
 
 - **Organización y escalabilidad:** Una estructura clara del módulo de Terraform facilita la colaboración, reduce errores y permite escalar la infraestructura como código de manera eficiente al adaptarse rápidamente a nuevos requerimientos.
