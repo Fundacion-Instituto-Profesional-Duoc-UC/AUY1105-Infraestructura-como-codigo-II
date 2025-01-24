@@ -126,6 +126,13 @@ terraform plan
 terraform apply
 ```
 
+Ejecuta los siguientes comandos para generar la documentación de Terraform asociada a los módulos:
+
+```bash
+terraform-docs markdown ec2_module > ec2_module/README.md
+terraform-docs markdown vpc_module > vpc_module/README.md
+```
+
 ## TRABAJO AUTÓNOMO
 
 Analiza, si en el archivo **vpc_module/main.tf** en el bloque que se adjunta, se podría establecer un comportamiento predeterminado.
