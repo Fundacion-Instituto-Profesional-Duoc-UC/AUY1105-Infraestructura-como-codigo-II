@@ -114,6 +114,28 @@ module "ec2" {
 }
 ```
 
+## TRABAJO AUTÓNOMO
+
+Para reforzar los conocimientos adquiridos, realiza las siguientes actividades:
+
+### Personalizar los Módulos:
+
+- Crea una nueva variable en el archivo variables.tf para definir el nombre del grupo de seguridad de tu instancia EC2.
+- Modifica el módulo ec2 para utilizar esta nueva variable en lugar de un valor fijo.
+- Verifica que tu infraestructura se despliegue correctamente con este cambio.
+
+### Agregar Funcionalidad Adicional:
+
+- Modifica el módulo vpc para agregar un tercer rango de subred pública (10.1.5.0/24). Asegúrate de que los recursos relacionados se actualicen adecuadamente.
+
+### Identificar y Solucionar Errores:
+
+- Intenta renombrar una variable en el archivo variables.tf y ajusta todas las referencias correspondientes. Observa cómo Terraform identifica los errores y soluciona cualquier problema que surja.
+
+### Documentar el Proceso:
+
+- Escribe un breve documento o realiza una presentación que explique los pasos seguidos para realizar los cambios anteriores, los retos enfrentados y cómo los resolviste.
+
 ## REFLEXIONES
 
 - **Flexibilidad y adaptabilidad del módulo:** El uso de variables permite personalizar configuraciones clave sin modificar el código base, facilitando la implementación en múltiples entornos y promoviendo una infraestructura adaptable y eficiente.
