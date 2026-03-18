@@ -1,0 +1,19 @@
+{
+    "child": {
+        "directory": "\/home\/oleivac\/Documentos\/AUY1105-Infraestructura-como-codigo-II\/EA1\/ACT1.2",
+        "height": 693,
+        "profile": "2b7c4080-0ddd-46c5-8f23-563fd3ba789d",
+        "readOnly": false,
+        "synchronizedInput": true,
+        "type": "Terminal",
+        "uuid": "18dabba5-157d-4644-8516-1f8b0f14f832",
+        "width": 1366
+    },
+    "height": 693,
+    "name": "${title}",
+    "synchronizedInput": false,
+    "type": "Session",
+    "uuid": "ee668cb1-9a19-4428-b09a-2d28e07a5179",
+    "version": "1.0",
+    "width": 1366
+}
