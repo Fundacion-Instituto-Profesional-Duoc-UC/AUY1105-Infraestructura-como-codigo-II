@@ -1,5 +1,5 @@
 resource "aws_key_pair" "mi_key" {
-  key_name   = "mi_key_name"
+  key_name   = "enzos.pem"
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCv/3bh5k1IlpLDCb1sbyxpXCwuOCIVZ/MT7crzUXsuJs6q/76uBox9zVRwj0Kec8lkQ4txNDPGzHFUecozpF11JHIdbt+JOm/feII2z1+JjS7xLbb3vYL7gy/z1OEjQGeUOMxrrtR3MWcWCZmDTCpHHcKcioxMLj1N98yDRp+n10a66CQ28qU9LwF66mb5g65MunoZ6LJWie/6CTolIBmyvs00oj/t3UZR8MPEgL2O++r176eNURqzt8JZ8GNXkVr9NqOztF4B2qK17HZQryu8wpoeXZeODDtUaksEY+pIeb2m4QAA7Y0WfuCJY2C5NP3kK+HxhiE0IYVOaT7HAB8l"
 }
 
