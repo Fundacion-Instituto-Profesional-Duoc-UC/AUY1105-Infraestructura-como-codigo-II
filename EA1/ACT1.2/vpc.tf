@@ -56,8 +56,6 @@ resource "aws_subnet" "subnet_privada_2" {
   }
 }
 
-
-
 # Crear un NAT Gateway
 resource "aws_eip" "nat_eip" {
   
