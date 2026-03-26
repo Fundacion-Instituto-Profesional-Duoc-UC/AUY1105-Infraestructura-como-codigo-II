@@ -1,61 +1,45 @@
-resource "aws_key_pair" "mi_key" {
-  key_name   = "mi_key_name"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDiuFUssdtHg8Y3rWGZFCSD58hSr4IqjFVKeid9d0G3bk7w99/AOyL/C45PnFodjOtD1eMndiCd40BqagdOYtKoieqlOTlmShrvE7N2A+MeaOP4CWLx7fj2MfekecPPFRAiMUCZk51SHxFr4oqX4Qhj8BkG1cG30p9QB+stfJKT3tUGczxUB1aor9qoLmPDTfaE4iSmNDscVmqQhX9jkppdzkg2ENh5cDO2EtLlHHxIodXLgetpWjBP68r90q/gwZV69XANcTWjZiZRyDmb9nIfQiZOO5C03FoG0GmTSZkAfvZdq7M2GsQSboln44VW/ukyQKFRVVepOCIHTaqcsjhV"
+resource "aws_vpc" "mi_vpc" {
+   cidr_block           = "10.0.0.0/16"
+   enable_dns_support   = true
+   enable_dns_hostnames = true
+   
+   # EXCEPCION CHECKOV
+   # checkov:skip=CKV2_AWS_11: Flow Logs omitidos para simplificar el entorno educativo.
+   
+   tags = {
+     Name = "mi-vpc"
+   }
 }
 
-resource "aws_security_group" "ssh_access" {
-  name        = "ssh-access"
-  description = "Permitir acceso SSH desde cualquier IPv4"
-  vpc_id      = aws_vpc.mi_vpc.id
-
-  # EXCEPCIONES CHECKOV (Justificadas para laboratorio)
-  # checkov:skip=CKV_AWS_24: Puerto 22 abierto requerido para acceso al laboratorio.
-  # checkov:skip=CKV_AWS_382: Salida a internet irrestricta por requerimientos de prueba.
-
-  ingress {
-    description = "SSH desde cualquier lugar"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] 
-  }
-
-  egress {
-    description = "Permitir trafico de salida a cualquier lugar"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1" 
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "ssh-access"
-  }
+# Recurso extra para bloquear el Security Group por defecto de la VPC (CKV2_AWS_12)
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.mi_vpc.id
 }
 
-resource "aws_instance" "mi_ec2" {
-  ami                    = "ami-012967cc5a8c9f891"
-  instance_type          = "t2.micro"
-  key_name               = aws_key_pair.mi_key.key_name
-  subnet_id              = aws_subnet.subnet_publica_1.id
-  vpc_security_group_ids = [aws_security_group.ssh_access.id]
+resource "aws_subnet" "subnet_publica_1" {
+   vpc_id                  = aws_vpc.mi_vpc.id
+   cidr_block              = "10.0.1.0/24"
+   availability_zone       = "us-east-1a"
+   map_public_ip_on_launch = true
 
-  monitoring = true
+   # EXCEPCION CHECKOV
+   # checkov:skip=CKV_AWS_130: Se requiere asignar IP publica para acceder al laboratorio.
 
-  metadata_options {
-    http_endpoint = "enabled"
-    http_tokens   = "required"
-  }
+   tags = {
+     Name = "subnet-publica-1"
+   }
+}
 
-  root_block_device {    
-    encrypted = true
-  }
+resource "aws_subnet" "subnet_publica_2" {
+   vpc_id                  = aws_vpc.mi_vpc.id
+   cidr_block              = "10.0.2.0/24"
+   availability_zone       = "us-east-1b"
+   map_public_ip_on_launch = true
 
-  # EXCEPCIONES CHECKOV (Limitaciones técnicas de la capa gratuita)
-  # checkov:skip=CKV_AWS_135: Instancia t2.micro no soporta optimizacion EBS.
-  # checkov:skip=CKV2_AWS_41: No se requiere IAM role para esta instancia educativa.
+   # EXCEPCION CHECKOV
+   # checkov:skip=CKV_AWS_130: Se requiere asignar IP publica para acceder al laboratorio.
 
-  tags = {
-    Name = "MiInstancia"
-  }
+   tags = {
+     Name = "subnet-publica-2"
+   }
 }
