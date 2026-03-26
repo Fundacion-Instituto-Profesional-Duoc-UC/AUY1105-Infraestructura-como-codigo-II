@@ -8,19 +8,23 @@ resource "aws_security_group" "ssh_access" {
   description = "Permitir acceso SSH desde cualquier IPv4"
   vpc_id      = aws_vpc.mi_vpc.id
 
+  # EXCEPCIONES PARA CHECKOV (Justificadas para laboratorio)
+  # checkov:skip=CKV_AWS_24: Se mantiene el puerto 22 abierto para facilitar el acceso en el entorno educativo.
+  # checkov:skip=CKV_AWS_382: Se permite la salida a internet irrestricta por requerimientos del laboratorio.
+
   ingress {
     description = "SSH desde cualquier lugar"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Permitir desde cualquier dirección IPv4
+    cidr_blocks = ["0.0.0.0/0"] 
   }
 
   egress {
     description = "Permitir trafico de salida a cualquier lugar"
     from_port   = 0
     to_port     = 0
-    protocol    = "-1" # Todos los protocolos
+    protocol    = "-1" 
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -36,9 +40,23 @@ resource "aws_instance" "mi_ec2" {
   subnet_id              = aws_subnet.subnet_publica_1.id
   vpc_security_group_ids = [aws_security_group.ssh_access.id]
 
-root_block_device {    
-    encrypted   = true
+  # SOLUCIÓN CKV_AWS_126: Habilitar monitoreo detallado
+  monitoring = true
+
+  # SOLUCIÓN CKV_AWS_79: Requerir la versión 2 de Metadatos (IMDSv2 por seguridad)
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
   }
+
+  root_block_device {    
+    encrypted = true
+  }
+
+  # EXCEPCIONES PARA CHECKOV (Limitaciones técnicas de tu laboratorio)
+  # checkov:skip=CKV_AWS_135: El tipo de instancia t2.micro no soporta optimización EBS.
+  # checkov:skip=CKV2_AWS_41: No se requiere asignar un IAM role para esta actividad.
+
   tags = {
     Name = "MiInstancia"
   }
