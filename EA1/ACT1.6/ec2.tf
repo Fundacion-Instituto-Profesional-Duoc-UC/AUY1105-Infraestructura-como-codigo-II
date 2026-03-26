@@ -36,6 +36,9 @@ resource "aws_instance" "mi_ec2" {
   subnet_id              = aws_subnet.subnet_publica_1.id
   vpc_security_group_ids = [aws_security_group.ssh_access.id]
 
+root_block_device {    
+    encrypted   = true
+  }
   tags = {
     Name = "MiInstancia"
   }
