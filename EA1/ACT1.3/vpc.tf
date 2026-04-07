@@ -1,4 +1,3 @@
-# Crear la VPC
 resource "aws_vpc" "mi_vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
@@ -8,7 +7,6 @@ resource "aws_vpc" "mi_vpc" {
   }
 }
 
-# Crear un Internet Gateway
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.mi_vpc.id
   tags = {
@@ -16,7 +14,6 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-# Crear subnets públicas
 resource "aws_subnet" "subnet_publica_1" {
   vpc_id                  = aws_vpc.mi_vpc.id
   cidr_block              = "10.0.1.0/24"
@@ -37,7 +34,6 @@ resource "aws_subnet" "subnet_publica_2" {
   }
 }
 
-# Crear subnets privadas
 resource "aws_subnet" "subnet_privada_1" {
   vpc_id            = aws_vpc.mi_vpc.id
   cidr_block        = "10.0.3.0/24"
@@ -56,9 +52,8 @@ resource "aws_subnet" "subnet_privada_2" {
   }
 }
 
-# Crear un NAT Gateway
 resource "aws_eip" "nat_eip" {
-  vpc = true
+  domain = "vpc"
   tags = {
     Name = "nat-eip"
   }
@@ -72,7 +67,6 @@ resource "aws_nat_gateway" "nat_gw" {
   }
 }
 
-# Tabla de enrutamiento pública
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.mi_vpc.id
   tags = {
@@ -80,7 +74,12 @@ resource "aws_route_table" "public_rt" {
   }
 }
 
-# Asociar subnets públicas a la tabla pública
+resource "aws_route" "public_route" {
+  route_table_id         = aws_route_table.public_rt.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw.id
+}
+
 resource "aws_route_table_association" "public_assoc_1" {
   subnet_id      = aws_subnet.subnet_publica_1.id
   route_table_id = aws_route_table.public_rt.id
@@ -91,14 +90,6 @@ resource "aws_route_table_association" "public_assoc_2" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-# Crear ruta para Internet en la tabla pública
-resource "aws_route" "public_route" {
-  route_table_id         = aws_route_table.public_rt.id
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.igw.id
-}
-
-# Tabla de enrutamiento privada
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.mi_vpc.id
   tags = {
@@ -106,7 +97,12 @@ resource "aws_route_table" "private_rt" {
   }
 }
 
-# Asociar subnets privadas a la tabla privada
+resource "aws_route" "private_route" {
+  route_table_id         = aws_route_table.private_rt.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.nat_gw.id
+}
+
 resource "aws_route_table_association" "private_assoc_1" {
   subnet_id      = aws_subnet.subnet_privada_1.id
   route_table_id = aws_route_table.private_rt.id
@@ -115,11 +111,4 @@ resource "aws_route_table_association" "private_assoc_1" {
 resource "aws_route_table_association" "private_assoc_2" {
   subnet_id      = aws_subnet.subnet_privada_2.id
   route_table_id = aws_route_table.private_rt.id
-}
-
-# Crear ruta para NAT en la tabla privada
-resource "aws_route" "private_route" {
-  route_table_id         = aws_route_table.private_rt.id
-  destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat_gw.id
 }
