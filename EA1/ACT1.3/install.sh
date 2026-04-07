@@ -33,6 +33,10 @@ echo "Instalando Terraform-Docs..."
 TERRAFORM_DOCS_VERSION="v0.19.0"
 TERRAFORM_DOCS_URL="https://terraform-docs.io/dl/${TERRAFORM_DOCS_VERSION}/terraform-docs-${TERRAFORM_DOCS_VERSION}-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64.tar.gz"
 
+# 7. Instalar TFLint
+echo "Instalando TFLint..."
+curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash || handle_error "7 (instalación de TFLint)"
+
 curl -sSLo terraform-docs.tar.gz "$TERRAFORM_DOCS_URL" || handle_error "6.1 (descarga de terraform-docs)"
 tar -xzf terraform-docs.tar.gz || handle_error "6.2 (extracción de terraform-docs)"
 chmod +x terraform-docs || handle_error "6.3 (asignar permisos a terraform-docs)"
