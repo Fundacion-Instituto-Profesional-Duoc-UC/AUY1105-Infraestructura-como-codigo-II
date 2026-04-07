@@ -39,4 +39,8 @@ resource "aws_instance" "mi_ec2" {
   tags = {
     Name = "MiInstancia"
   }
+  
+  root_block_device {    
+    encrypted   = true
+  }
 }

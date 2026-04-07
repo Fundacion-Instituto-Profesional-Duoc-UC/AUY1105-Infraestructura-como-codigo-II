@@ -1,7 +1,8 @@
 # Terraform state files
 *.tfstate
 *.tfstate.*
-
+# PEM FILES
+*.pem
 # Terraform plan files
 *.tfplan
 

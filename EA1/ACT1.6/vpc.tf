@@ -64,6 +64,11 @@ resource "aws_eip" "nat_eip" {
   }
 }
 
+resource "aws_instance" "test" {
+  monitoring = true
+ }
+
+
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat_eip.id
   subnet_id     = aws_subnet.subnet_publica_1.id
