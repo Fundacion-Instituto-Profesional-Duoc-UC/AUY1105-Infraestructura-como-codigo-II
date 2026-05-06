@@ -1,4 +1,4 @@
-#prueba
+#provider
 terraform {
   required_providers {
     aws = {
