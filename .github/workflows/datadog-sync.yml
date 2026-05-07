@@ -1,0 +1,22 @@
+name: Datadog SIEM Sync
+on:
+  push:
+    branches: [ main ]
+jobs:
+  notify-siem:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+      - name: Avisar al SIEM de Datadog
+        run: |
+          curl -X POST "https://api.datadoghq.com/api/v1/events" \
+          -H "Content-Type: application/json" \
+          -H "DD-API-KEY: {{ secrets.DD_API_KEY }}" \
+          -d '{
+                "title": "GitHub SIEM Alert: Cambio en Repositorio",
+                "text": "Chef, se ha detectado un cambio en el código del servidor crítico.",
+                "priority": "normal",
+                "tags": ["env:production", "type:security_audit"],
+                "alert_type": "info"
+              }'

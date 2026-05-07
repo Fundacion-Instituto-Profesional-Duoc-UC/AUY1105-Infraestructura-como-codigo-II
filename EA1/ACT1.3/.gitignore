@@ -30,3 +30,4 @@ crash.log
 terraform.rc
 
 # Archivos temporales o de respaldo generados por
+*.zip
