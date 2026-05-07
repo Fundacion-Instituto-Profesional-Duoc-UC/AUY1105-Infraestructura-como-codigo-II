@@ -45,3 +45,7 @@ variable "az_2" {
   type        = string
   default     = "us-east-1b"
 }
+variable "subnet_publica_3_cidr" {
+  description = "CIDR de la tercera subred pública"
+  type        = string
+}
