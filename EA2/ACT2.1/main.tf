@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
 module "vpc" {
   source                = "./vpc_module"
   vpc_cidr              = "10.1.0.0/16"
@@ -18,4 +22,28 @@ module "ec2" {
   subnet_id     = module.vpc.subnet_publica_1_id
   vpc_id        = module.vpc.vpc_id
   instance_name = "MiInstancia"
+  new_key_name  = "terraform_key"
+  new_public_key = ""
+  additional_instances = [
+    {
+      instance_name       = "InstanciaPublicaAdicional"
+      instance_type       = "t3.micro"
+      subnet_id           = module.vpc.subnet_publica_2_id
+      security_group_name = "ssh-from-my-ip"
+      allow_ssh_from      = "152.230.70.226/32"
+    },
+    {
+      instance_name       = "InstanciaPrivada"
+      instance_type       = "t3.micro"
+      subnet_id           = module.vpc.subnet_privada_1_id
+      security_group_name = "ssh-from-public-instance"
+      allow_ssh_from      = "dummy"  # Not used for private instance
+    }
+  ]
+}
+
+module "s3" {
+  source        = "./s3_module"
+  bucket_prefix = "mi-bucket-personalizado"
+  bucket_suffix = "2026"
 }

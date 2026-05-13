@@ -34,6 +34,16 @@ resource "aws_subnet" "subnet_publica_2" {
   }
 }
 
+resource "aws_subnet" "subnet_publica_3" {
+  vpc_id                  = aws_vpc.mi_vpc.id
+  cidr_block              = var.subnet_publica_3_cidr
+  availability_zone       = var.az_1
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "subnet-publica-3"
+  }
+}
+
 resource "aws_subnet" "subnet_privada_1" {
   vpc_id            = aws_vpc.mi_vpc.id
   cidr_block        = var.subnet_privada_1_cidr
@@ -53,7 +63,7 @@ resource "aws_subnet" "subnet_privada_2" {
 }
 
 resource "aws_eip" "nat_eip" {
-  vpc = true
+  domain = "vpc"
   tags = {
     Name = "nat-eip"
   }
@@ -81,6 +91,11 @@ resource "aws_route_table_association" "public_assoc_1" {
 
 resource "aws_route_table_association" "public_assoc_2" {
   subnet_id      = aws_subnet.subnet_publica_2.id
+  route_table_id = aws_route_table.public_rt.id
+}
+
+resource "aws_route_table_association" "public_assoc_3" {
+  subnet_id      = aws_subnet.subnet_publica_3.id
   route_table_id = aws_route_table.public_rt.id
 }
 

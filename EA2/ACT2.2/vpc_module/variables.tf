@@ -30,8 +30,14 @@ variable "subnet_privada_1_cidr" {
 
 variable "subnet_privada_2_cidr" {
   description = "CIDR block de la Subnet privada 2"
- type        = string
+  type        = string
   default     = "10.0.4.0/24"
+}
+
+variable "subnet_publica_3_cidr" {
+  description = "CIDR block de la Subnet pública 3"
+  type        = string
+  default     = "10.1.5.0/24"
 }
 
 variable "az_1" {

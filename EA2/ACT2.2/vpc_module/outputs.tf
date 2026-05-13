@@ -13,6 +13,11 @@ output "subnet_publica_2_id" {
   value       = aws_subnet.subnet_publica_2.id
 }
 
+output "subnet_publica_3_id" {
+  description = "ID de la Subnet pública 3"
+  value       = aws_subnet.subnet_publica_3.id
+}
+
 output "subnet_privada_1_id" {
   description = "ID de la Subnet privada 1"
   value       = aws_subnet.subnet_privada_1.id

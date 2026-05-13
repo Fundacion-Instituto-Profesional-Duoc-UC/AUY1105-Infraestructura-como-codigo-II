@@ -40,3 +40,28 @@ variable "instance_name" {
   type        = string
   default     = "MiInstancia"
 }
+
+# Nuevas variables para instancias adicionales
+variable "additional_instances" {
+  description = "Lista de configuraciones para instancias adicionales"
+  type = list(object({
+    instance_name   = string
+    instance_type   = string
+    subnet_id       = string
+    security_group_name = string
+    allow_ssh_from  = string  # CIDR o IP para SSH
+  }))
+  default = []
+}
+
+variable "new_key_name" {
+  description = "Nombre del nuevo par de claves para instancias adicionales"
+  type        = string
+  default     = "terraform_key"
+}
+
+variable "new_public_key" {
+  description = "Nueva clave pública SSH para instancias adicionales (opcional)"
+  type        = string
+  default     = ""
+}

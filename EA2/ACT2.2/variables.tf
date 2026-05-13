@@ -21,3 +21,15 @@ variable "vpc_cidr" {
   type        = string
   default     = "10.1.0.0/16"
 }
+
+variable "security_group_name" {
+  description = "Nombre del grupo de seguridad para la instancia EC2"
+  type        = string
+  default     = "mi-instancia-ssh"
+}
+
+variable "ec2_instance_type" {
+  description = "Tipo de instancia EC2"
+  type        = string
+  default     = "t3.micro"
+}
