@@ -35,7 +35,7 @@ func TestVPCInfrastructure(t *testing.T) {
 
 		// Configurar variables de entorno si es necesario (por ejemplo, AWS Access Key)
 		EnvVars: map[string]string{
-			"AWS_DEFAULT_REGION": "us-east-1",
+			"AWS_DEFAULT_REGION": "us-west-1",
 		},
 
 		// Configurar variables de backend si es necesario
