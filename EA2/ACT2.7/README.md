@@ -69,10 +69,10 @@ Para la realización de las pruuebas, utilizaremos terratest, el cual nos ayudar
 Para ello, primero deberemos previamente instalar las dependencias necesarias para la ejecución de nuestras pruebas:
 
 ```bash
-go get github.com/gruntwork-io/terratest/modules/terraform
-go get github.com/gruntwork-io/terratest/modules/test-structure
-go get github.com/gruntwork-io/terratest/modules/aws
-go get github.com/stretchr/testify/assert
+go install github.com/gruntwork-io/terratest/modules/terraform
+go install github.com/gruntwork-io/terratest/modules/test-structure
+go install github.com/gruntwork-io/terratest/modules/aws
+go install github.com/stretchr/testify/assert
 ```
 
 Ya instaladas las dependencias, ejecutaremos el siguiente comando, para ejecutar las pruebas y analizar el resultado:
