@@ -30,8 +30,8 @@ func TestVPCInfrastructure(t *testing.T) {
 			"subnet_publica_2_cidr": "10.0.2.0/24",
 			"subnet_privada_1_cidr": "10.0.3.0/24",
 			"subnet_privada_2_cidr": "10.0.4.0/24",
-			"az_1":                  "eu-west-1a", // Zona inválida para la región actual
-			"az_2":                  "eu-west-1b", // Zona inválida para la región actual
+			"az_1":                  "us-east-1a", // Zona válida para la región actual
+			"az_2":                  "us-east-1b", // Zona válida para la región actual
 		},
 
 		// Mantenemos el EnvVars limpio para evitar conflictos
