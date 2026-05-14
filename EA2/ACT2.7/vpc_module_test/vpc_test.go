@@ -18,10 +18,11 @@ func TestVPCInfrastructure(t *testing.T) {
 		// Dirigirse a la carpeta que contiene los archivos de terraform
 		TerraformDir: exampleDir,
 
-		// No generar el archivo de estado
+		// No generar salida en color para facilitar la lectura de logs
 		NoColor: true,
 
-		// Configura variables de entrada si es necesario (puedes añadir más según sea necesario)
+		// Configura variables de entrada
+		// ¡AQUÍ ESTÁ EL CAMBIO! Pasamos zonas de Irlanda para forzar un fallo en us-east-1
 		Vars: map[string]interface{}{
 			"vpc_name":              "mi_vpc",
 			"vpc_cidr":              "10.0.0.0/16",
@@ -29,22 +30,19 @@ func TestVPCInfrastructure(t *testing.T) {
 			"subnet_publica_2_cidr": "10.0.2.0/24",
 			"subnet_privada_1_cidr": "10.0.3.0/24",
 			"subnet_privada_2_cidr": "10.0.4.0/24",
-			"az_1":                  "us-east-1a",
-			"az_2":                  "us-east-1b",
+			"az_1":                  "eu-west-1a", // Zona inválida para la región actual
+			"az_2":                  "eu-west-1b", // Zona inválida para la región actual
 		},
 
-		// Configurar variables de entorno si es necesario (por ejemplo, AWS Access Key)
-		EnvVars: map[string]string{
-			"AWS_DEFAULT_REGION": "us-west-1",
-		},
-
-		// Configurar variables de backend si es necesario
+		// Mantenemos el EnvVars limpio para evitar conflictos
+		EnvVars: map[string]string{},
 	}
 
-	// Limpia el estado de Terraform después de que termine el test
+	// Limpia el estado de Terraform después de que termine el test (incluso si falla a la mitad)
 	defer terraform.Destroy(t, terraformOptions)
 
-	// Inicializa y aplica el código de Terraform
+	// Inicializa y aplica el código de Terraform. 
+	// ¡Aquí es donde la ejecución fallará y te dará el error esperado!
 	terraform.InitAndApply(t, terraformOptions)
 
 	// Verifica que la VPC haya sido creada correctamente
