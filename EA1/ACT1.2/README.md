@@ -31,7 +31,7 @@
 ```
 
 ### 4. Subir y Ejecutar el Script install.sh
-1. Sube el archivo a la instancia EC2:
+1. Sube el archivo a la instancia EC2: hola
 
 ```bash
    scp -i "nombre-de-tu-clave.pem" install.sh ec2-user@<dirección-ip-pública>:~

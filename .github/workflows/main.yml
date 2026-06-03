@@ -10,9 +10,9 @@ jobs:
     name: Call Terraform Workflow
     uses: ./.github/workflows/terraform.yml
     with:
-      path: EA1/ACT1.7
+      path: EA2/Evaluacion
   call-checkov-workflow:
-    name: Call Terraform Workflow
+    name: Call Checkov Workflow
     uses: ./.github/workflows/checkov.yml
     with:
-      path: EA1/ACT1.8
+      path: EA2/Evaluacion

@@ -14,6 +14,7 @@ Este archivo contiene los cambios realizados en el proyecto de infraestructura c
 - Actualizadas las reglas de seguridad en `main.tf` para permitir solo tráfico SSH (puerto 22).
 
 ### Agregado
+- Actualización del grupo de seguridad `ssh_access` para restringir el acceso SSH solo a la IP `152.230.70.162`.
 - Inclusión de la variable `instance_type` en `variables.tf` con valor por defecto `t2.micro`.
 - Nueva salida `public_ip` para mostrar la dirección IP pública de la instancia EC2.
 
