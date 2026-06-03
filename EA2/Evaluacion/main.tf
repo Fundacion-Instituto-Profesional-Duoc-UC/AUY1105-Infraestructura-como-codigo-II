@@ -29,7 +29,7 @@ module "compute" {
 module "storage" {
   source = "github.com/Infra-como-codigo-II-2026/terraform-aws-s3-auy1105-grupo-6?ref=v1.0.0"
 
-  bucket_suffix      = "grupo-1-data"
+  bucket_suffix      = "grupo-6-data"
   versioning_enabled = true
   project            = "auy1105"
   environment        = "dev"
