@@ -1,5 +1,5 @@
 module "networking" {
-  source = "github.com/Infra-como-codigo-II-2026/terraform-aws-vpc-auy1105-grupo-6?ref=v1.0.0"
+  source = "github.com/Infra-como-codigo-II-2026/terraform-aws-vpc-auy1105-grupo-6?ref=main"
 
   vpc_name              = "mi-vpc"
   vpc_cidr              = "10.0.0.0/16"
@@ -14,7 +14,7 @@ module "networking" {
 }
 
 module "compute" {
-  source = "github.com/Infra-como-codigo-II-2026/terraform-aws-ec2-auy1105-grupo-6?ref=v1.0.0"
+  source = "github.com/Infra-como-codigo-II-2026/terraform-aws-ec2-auy1105-grupo-6?ref=main"
 
   key_name      = var.key_name
   ami           = var.ami
@@ -27,7 +27,7 @@ module "compute" {
 }
 
 module "storage" {
-  source = "github.com/Infra-como-codigo-II-2026/terraform-aws-s3-auy1105-grupo-6?ref=v1.0.0"
+  source = "github.com/Infra-como-codigo-II-2026/terraform-aws-s3-auy1105-grupo-6?ref=main"
 
   bucket_suffix      = "grupo-6-data"
   versioning_enabled = true
