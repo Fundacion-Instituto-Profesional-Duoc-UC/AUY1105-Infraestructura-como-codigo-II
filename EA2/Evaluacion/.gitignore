@@ -1,0 +1,20 @@
+.terraform/
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+
+# SSH keys
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+
+# OS
+.DS_Store
+Thumbs.db
