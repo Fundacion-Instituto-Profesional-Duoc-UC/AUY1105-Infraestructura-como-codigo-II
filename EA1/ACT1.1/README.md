@@ -4,7 +4,7 @@
 
 ## DESARROLLO DE ACTIVIDAD
 
-### 1. Realizar un Fork del Repositorio
+### 1. Realiza un Fork del Repositorio
 
 1. Accede al repositorio de GitHub proporcionado: [AUY1105-Infraestructura-como-codigo-II](https://github.com/Fundacion-Instituto-Profesional-Duoc-UC/AUY1105-Infraestructura-como-codigo-II).  
 2. Haz clic en el botón **Fork** en la parte superior derecha de la página.  
