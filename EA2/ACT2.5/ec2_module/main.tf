@@ -38,5 +38,6 @@ resource "aws_instance" "mi_ec2" {
 
   tags = {
     Name = var.instance_name
+    Environment = "Dev"
   }
 }

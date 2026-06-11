@@ -21,4 +21,3 @@ module "ec2" {
   use_security_group = false
 }
 
-

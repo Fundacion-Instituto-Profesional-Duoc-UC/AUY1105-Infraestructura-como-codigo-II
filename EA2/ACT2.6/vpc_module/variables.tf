@@ -37,3 +37,15 @@ variable "az_2" {
   description = "Zona de disponibilidad para la Subnet 2"
   type        = string
 }
+
+variable "enable_dns_support" {
+  description = "Habilitar el soporte DNS para la VPC"
+  type        = bool
+  default     = true
+}
+
+variable "enable_dns_hostnames" {
+  description = "Habilitar los nombres DNS para las instancias dentro de la VPC"
+  type        = bool
+  default     = true
+}

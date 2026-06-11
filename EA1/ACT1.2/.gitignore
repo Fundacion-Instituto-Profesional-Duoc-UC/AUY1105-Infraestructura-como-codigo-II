@@ -30,3 +30,6 @@ crash.log
 terraform.rc
 
 # Archivos temporales o de respaldo generados por
+
+#PEM files  
+*.pem

@@ -1,7 +1,7 @@
 resource "aws_vpc" "mi_vpc" {
   cidr_block           = var.vpc_cidr
-  enable_dns_support   = true
-  enable_dns_hostnames = true
+  enable_dns_support   = var.enable_dns_support
+  enable_dns_hostnames = var.enable_dns_hostnames
   tags = {
     Name = var.vpc_name
   }
@@ -53,7 +53,7 @@ resource "aws_subnet" "subnet_privada_2" {
 }
 
 resource "aws_eip" "nat_eip" {
-  vpc = true
+  domain = "vpc"
   tags = {
     Name = "nat-eip"
   }

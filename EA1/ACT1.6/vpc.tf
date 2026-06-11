@@ -21,7 +21,8 @@ resource "aws_subnet" "subnet_publica_1" {
   vpc_id                  = aws_vpc.mi_vpc.id
   cidr_block              = "10.0.1.0/24"
   availability_zone       = "us-east-1a"
-  map_public_ip_on_launch = true
+  # CKV_AWS_130: Corregido para no asignar IP pública por defecto
+  map_public_ip_on_launch = false 
   tags = {
     Name = "subnet-publica-1"
   }
@@ -31,7 +32,8 @@ resource "aws_subnet" "subnet_publica_2" {
   vpc_id                  = aws_vpc.mi_vpc.id
   cidr_block              = "10.0.2.0/24"
   availability_zone       = "us-east-1b"
-  map_public_ip_on_launch = true
+  # CKV_AWS_130: Corregido para no asignar IP pública por defecto
+  map_public_ip_on_launch = false
   tags = {
     Name = "subnet-publica-2"
   }
@@ -58,7 +60,7 @@ resource "aws_subnet" "subnet_privada_2" {
 
 # Crear un NAT Gateway
 resource "aws_eip" "nat_eip" {
-  vpc = true
+  domain = "vpc"
   tags = {
     Name = "nat-eip"
   }
