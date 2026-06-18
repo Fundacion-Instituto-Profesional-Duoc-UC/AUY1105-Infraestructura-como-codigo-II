@@ -4,7 +4,7 @@ resource "aws_key_pair" "mi_key" {
 }
 
 resource "aws_security_group" "ssh_access" {
-  name        = var.security_group_name
+  name        = "ssh_access-eduardito"
   description = "Permitir acceso SSH desde cualquier IPv4"
   vpc_id      = var.vpc_id
 
