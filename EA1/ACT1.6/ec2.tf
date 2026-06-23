@@ -8,19 +8,23 @@ resource "aws_security_group" "ssh_access" {
   description = "Permitir acceso SSH desde cualquier IPv4"
   vpc_id      = aws_vpc.mi_vpc.id
 
+  # EXCEPCIONES CHECKOV
+  # checkov:skip=CKV_AWS_24: Puerto 22 abierto requerido para acceso al laboratorio.
+  # checkov:skip=CKV_AWS_382: Salida a internet irrestricta por requerimientos de prueba.
+
   ingress {
     description = "SSH desde cualquier lugar"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Permitir desde cualquier dirección IPv4
+    cidr_blocks = ["0.0.0.0/0"] 
   }
 
   egress {
     description = "Permitir trafico de salida a cualquier lugar"
     from_port   = 0
     to_port     = 0
-    protocol    = "-1" # Todos los protocolos
+    protocol    = "-1" 
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -35,6 +39,21 @@ resource "aws_instance" "mi_ec2" {
   key_name               = aws_key_pair.mi_key.key_name
   subnet_id              = aws_subnet.subnet_publica_1.id
   vpc_security_group_ids = [aws_security_group.ssh_access.id]
+
+  monitoring = true
+
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
+
+  root_block_device {    
+    encrypted = true
+  }
+
+  # EXCEPCIONES CHECKOV
+  # checkov:skip=CKV_AWS_135: Instancia t2.micro no soporta optimizacion EBS.
+  # checkov:skip=CKV2_AWS_41: No se requiere IAM role para esta instancia educativa.
 
   tags = {
     Name = "MiInstancia"
