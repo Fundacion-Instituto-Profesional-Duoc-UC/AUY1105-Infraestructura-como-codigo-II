@@ -2,6 +2,9 @@
 *.tfstate
 *.tfstate.*
 
+# PEM files 
+*.pem
+
 # Terraform plan files
 *.tfplan
 
