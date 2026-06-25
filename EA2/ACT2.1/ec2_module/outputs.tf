@@ -1,14 +1,13 @@
 output "instance_id" {
-  description = "ID de la instancia EC2"
-  value       = aws_instance.mi_ec2.id
+  # Cambiado de mi_ec2 a publica o publica_1 según tu main.tf
+  value = aws_instance.publica.id 
 }
 
 output "public_ip" {
-  description = "IP pública de la instancia EC2"
-  value       = aws_instance.mi_ec2.public_ip
+  value = aws_instance.publica.public_ip
 }
 
 output "security_group_id" {
-  description = "ID del grupo de seguridad"
-  value       = aws_security_group.ssh_access.id
+  # Cambiado de ssh_access a sg_pub
+  value = aws_security_group.sg_pub.id
 }

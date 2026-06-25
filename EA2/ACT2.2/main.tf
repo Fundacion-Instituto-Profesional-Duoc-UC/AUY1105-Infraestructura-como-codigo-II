@@ -4,6 +4,7 @@ module "vpc" {
   vpc_name              = var.vpc_name
   subnet_publica_1_cidr = "10.1.1.0/24"
   subnet_publica_2_cidr = "10.1.2.0/24"
+  subnet_publica_3_cidr = "10.1.5.0/24"
   subnet_privada_1_cidr = "10.1.3.0/24"
   subnet_privada_2_cidr = "10.1.4.0/24"
   az_1                  = "us-east-1a"
@@ -18,4 +19,5 @@ module "ec2" {
   subnet_id     = module.vpc.subnet_publica_1_id
   vpc_id        = module.vpc.vpc_id
   instance_name = var.instance_name
+  security_group_name = var.sg_name
 }

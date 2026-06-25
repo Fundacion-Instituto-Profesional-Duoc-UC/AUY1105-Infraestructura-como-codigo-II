@@ -40,3 +40,12 @@ variable "instance_name" {
   type        = string
   default     = "MiInstancia"
 }
+variable "subnet_publica_2_id" {
+  description = "ID de la segunda subred pública"
+  type        = string
+}
+
+variable "subnet_privada_1_id" {
+  description = "ID de la subred privada"
+  type        = string
+}

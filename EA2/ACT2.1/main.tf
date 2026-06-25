@@ -1,3 +1,16 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0" # O la versión que estés usando
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1" # <--- O la región que prefieras (us-east-2, us-west-2, etc.)
+}
+
 module "vpc" {
   source                = "./vpc_module"
   vpc_cidr              = "10.1.0.0/16"
@@ -18,4 +31,24 @@ module "ec2" {
   subnet_id     = module.vpc.subnet_publica_1_id
   vpc_id        = module.vpc.vpc_id
   instance_name = "MiInstancia"
+  
+  # Si tienes la variable para la subred privada definida, pásala también:
+  subnet_privada_1_id = module.vpc.subnet_privada_1_id
+  subnet_publica_2_id = module.vpc.subnet_publica_2_id
+}
+
+module "s3" {
+  source                  = "./s3_module"
+  bucket_prefix           = "lab-infra"
+  bucket_suffix           = "estudiante-12345"
+  versioning_enabled      = true
+  enable_public_policy    = true # Cambia a false si el laboratorio te da error de permisos
+  block_public_acls       = false
+  block_public_policy     = false # Debe ser false para que la política de lectura pública funcione
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+
+  tags = {
+    Proyecto = "Laboratorio-Terraform"
+  }
 }

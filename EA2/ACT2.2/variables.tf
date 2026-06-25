@@ -1,3 +1,9 @@
+# variables.tf
+variable "sg_name" {
+  description = "Nombre para el grupo de seguridad de la EC2"
+  type        = string
+  default     = "mi-seguridad-sg"
+}
 variable "key_name" {
   description = "Nombre de la llave SSH"
   type        = string
